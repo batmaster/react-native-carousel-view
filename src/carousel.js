@@ -34,6 +34,7 @@ type Props = {
   onPageChange?: (number) => void,
   onScrollBegin?: () => void,
   onScroll?: () => void,
+  currentPage: number
 }
 
 export default class Carousel extends Component {
@@ -110,6 +111,15 @@ export default class Carousel extends Component {
 
   componentDidMount() {
     this._resetPager();
+    this.props.onRef(this);
+  }
+
+  componentWillUnmount() {
+    this.props.onRef(undefined);
+  }
+
+  scrollToPage(pageIndex: number) {
+      this.indicatorPressed(pageIndex);
   }
 
   indicatorPressed(activePage: number) {
